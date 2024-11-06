@@ -11,8 +11,8 @@ class HomeController extends BaseController
         $data['content'] = "Seja bem vindo!";
 
         return
-            view('templates/header', $data).
+            view('contents/header', $data).
             view('home/content', $data).
-            view('templates/footer', $data);
+            view('contents/footer', $data);
     }
 }

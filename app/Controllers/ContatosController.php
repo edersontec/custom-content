@@ -27,9 +27,9 @@ class ContatosController extends BaseController
         $data['content'] = $table->generate($contatos);
 
         return
-            view('templates/header', $data).
+            view('contents/header', $data).
             view('contatos/content', $data).
-            view('templates/footer', $data);
+            view('contents/footer', $data);
 
     }
 
@@ -39,9 +39,9 @@ class ContatosController extends BaseController
         $data['title'] = "Cadastrar Novo Contato";
 
         return
-            view('templates/header', $data).
+            view('contents/header', $data).
             view('contatos/form', $data).
-            view('templates/footer', $data);
+            view('contents/footer', $data);
     }
 
     public function editar($id): string
@@ -55,9 +55,9 @@ class ContatosController extends BaseController
         $data = array_merge($data, $arrayDetalhesContato);
 
         return
-            view('templates/header', $data).
+            view('contents/header', $data).
             view('contatos/form', $data).
-            view('templates/footer', $data);
+            view('contents/footer', $data);
     }
 
 

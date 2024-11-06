@@ -20,9 +20,9 @@ class TemplatesController extends BaseController
         $data['content'] = $table->generate($templates);
 
         return
-            view('templates/header', $data).
+            view('contents/header', $data).
             view('content', $data).
-            view('templates/footer', $data);
+            view('contents/footer', $data);
 
 
     }
