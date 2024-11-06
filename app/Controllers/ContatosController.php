@@ -16,10 +16,11 @@ class ContatosController extends BaseController
         $contatosModel = model(ContatosModel::class);
         $contatos = $contatosModel->getContatos();
 
-        //Adiciona botões CRUD em cada contato
         foreach ($contatos as $key => $contato) {
-            $contatos[$key]['link_editar'] = '<a href="/contatos/editar/"'.$contato['id'].'">editar</a>';
-            $contatos[$key]['link_excluir'] = '<a href="/contatos/excluir/"'.$contato['id'].'">excluir</a>';  
+            
+            //Adiciona botões CRUD em cada contato
+            $contatos[$key]['link_editar'] = '<a href="/contatos/editar/'.$contato['id'].'">editar</a>';
+            $contatos[$key]['link_excluir'] = '<a href="/contatos/excluir/'.$contato['id'].'">excluir</a>';  
         }
 
         $table = new \CodeIgniter\View\Table();

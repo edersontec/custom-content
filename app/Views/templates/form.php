@@ -4,14 +4,14 @@
 
     <!--<h1><?= esc($title) ?></h1>-->
 
-    <form action="/contatos/salvar" method="POST">
+    <form action="/templates/salvar" method="POST">
         
         <p>nome: 
             <input type="text" name="nome" value="<?php if (isset($nome)) echo $nome; ?>">
         </p>
-
-        <p>email: 
-            <input type="text" name="email" value="<?php if (isset($email)) echo $email; ?>">
+        
+        <p>mensagem: 
+            <textarea name="mensagem" rows="4" cols="50"><?php if (isset($mensagem)) echo $mensagem; ?></textarea>
         </p>
         
         <?php if (isset($id))

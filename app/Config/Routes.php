@@ -14,4 +14,9 @@ $routes->get('/contatos/excluir/(:num)', 'ContatosController::excluir/$1');
 $routes->post('/contatos/salvar', 'ContatosController::salvar');
 
 $routes->get('/templates', 'TemplatesController::index');
+$routes->get('/templates/novo', 'TemplatesController::novo');
+$routes->get('/templates/editar/(:num)', 'TemplatesController::editar/$1');
+$routes->get('/templates/excluir/(:num)', 'TemplatesController::excluir/$1');
+$routes->post('/templates/salvar', 'TemplatesController::salvar');
+
 $routes->get('/campanhas', 'CampanhasController::index');
