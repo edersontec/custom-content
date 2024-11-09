@@ -20,3 +20,9 @@ $routes->get('/templates/excluir/(:num)', 'TemplatesController::excluir/$1');
 $routes->post('/templates/salvar', 'TemplatesController::salvar');
 
 $routes->get('/campanhas', 'CampanhasController::index');
+$routes->get('/campanhas/novo', 'CampanhasController::novo');
+$routes->get('/campanhas/editar/(:num)', 'CampanhasController::editar/$1');
+$routes->get('/campanhas/excluir/(:num)', 'CampanhasController::excluir/$1');
+$routes->post('/campanhas/salvar', 'CampanhasController::salvar');
+
+

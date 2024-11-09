@@ -23,8 +23,10 @@ class ContatosController extends BaseController
             $contatos[$key]['link_excluir'] = '<a href="/contatos/excluir/'.$contato['id'].'">excluir</a>';  
         }
 
+        $arrayHeader = array_key_exists(0, $contatos) ? array_keys($contatos[0]) : "";
+
         $table = new \CodeIgniter\View\Table();
-        $table->setHeading('ID', 'Nome', 'Email');
+        $table->setHeading($arrayHeader);
         $data['content'] = $table->generate($contatos);
 
         return
@@ -62,7 +64,8 @@ class ContatosController extends BaseController
     }
 
 
-    public function salvar(){
+    public function salvar()
+    {
 
         $data = $this->request->getPost();
 

@@ -6,7 +6,6 @@ use App\Models\TemplatesModel;
 
 class TemplatesController extends BaseController
 {
-
     public function index(): string
     {
 
@@ -28,10 +27,10 @@ class TemplatesController extends BaseController
             $templates[$key]['mensagem'] = character_limiter($template['mensagem'], 20, '...');
         }
 
-
+        $arrayHeader = array_key_exists(0, $templates) ? array_keys($templates[0]) : "";
 
         $table = new \CodeIgniter\View\Table();
-        $table->setHeading('ID', 'Nome', 'Mensagem');
+        $table->setHeading($arrayHeader);
         $data['content'] = $table->generate($templates);
 
         return
@@ -45,6 +44,11 @@ class TemplatesController extends BaseController
     {
 
         $data['title'] = "Cadastrar Novo Template";
+
+        // busca todos os contatos
+        
+
+        // busca todos os templates
 
         return
             view('contents/header', $data).
@@ -69,7 +73,8 @@ class TemplatesController extends BaseController
     }
 
 
-    public function salvar(){
+    public function salvar()
+    {
 
         $data = $this->request->getPost();
 
