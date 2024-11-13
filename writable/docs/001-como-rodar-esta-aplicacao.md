@@ -34,7 +34,7 @@ ou
 
 ## rode migrations
 
-TODO
+php spark migrate
 
 ## rode seeds
 
