@@ -36,9 +36,9 @@ ou
 
 php spark migrate
 
-## rode seeds
+## rode seeds (caso queira popular o banco com dados de exemplo)
 
-TODO
+php spark db:seed TestSeeder
 
 ## rode o ambiente
 
