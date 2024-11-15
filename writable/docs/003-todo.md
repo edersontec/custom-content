@@ -1,9 +1,10 @@
 # 003 - TODO
 
-- implementar configuração de parâmetros smtp
 - implementar validação de formulários
 - recurso para gerenciar o processamento das campanhas: request, cli, processo em background ...
-- teste esqueleto aplicação
+- implementar configuração de parâmetros smtp
+- implementar módulo de envio de emails
+- teste fluxo basico aplicação
 - melhoria lista de exibição de contatos, templates e campanhas usando bootstrap
 - melhoria layout do dashboard usando bootstrap
 - recurso para filtrar quais contatos farão parte da campanha
