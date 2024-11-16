@@ -8,37 +8,54 @@ para usar sqlite habilite as extensoes no php (arquivo .ini), descomente linhas 
 	extension=pdo_sqlite
 	extension=sqlite3
 
+
 ## git clone
 
 TODO
 
-## composer init
+
+## composer install
 
 TODO
 
-## crie banco de dados 
 
-### sqlite
+## configure variáveis de ambiente no arquivo .env
+
+### configurações iniciais
+
+CI_ENVIRONMENT
+app.baseURL
+
+### configure o banco de dados 
+
+#### sqlite
 
 php spark db:create data --ext sqlite
+coloque na pasta /writable/db/data.sqlite
 
 ### mysql
 
+instale mysql, rode o serviço, crie uma database
+no arquivo .env, descomente as linhas e adicione as configurações do seu banco de dados mysql
+
+### configure serviço de envio de emails SMTP
+
 TODO
 
-## configure parâmetros do banco de dados
+#### teste serviço de envio de emails SMTP
 
-arquivo app/Config/Database.php
-ou
-.env
+php public\index.php testarenvioemail
+
 
 ## rode migrations
 
 php spark migrate
 
+
 ## rode seeds (caso queira popular o banco com dados de exemplo)
 
 php spark db:seed TestSeeder
+
 
 ## rode o ambiente
 
