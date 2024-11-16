@@ -25,4 +25,6 @@ $routes->get('/campanhas/editar/(:num)', 'CampanhasController::editar/$1');
 $routes->get('/campanhas/excluir/(:num)', 'CampanhasController::excluir/$1');
 $routes->post('/campanhas/salvar', 'CampanhasController::salvar');
 
+$routes->cli('/campanhas', 'CampanhasController::index');
 
+$routes->cli('testarenvioemail', 'EmailController::testarEnvioEmail');
