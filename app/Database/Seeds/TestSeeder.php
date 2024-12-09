@@ -8,10 +8,10 @@ class TestSeeder extends Seeder
 {
     public function run()
     {
-        $this->call('ContatosSeeder');
-        $this->call('TemplatesSeeder');
-        $this->call('CampanhasSeeder');
-        $this->call('CampanhasContatosTemplatesSeeder');
+        $this->call('ContatosFakeSeeder');
+        $this->call('TemplatesFakeSeeder');
+        $this->call('CampanhasFakeSeeder');
+        $this->call('CampanhasContatosTemplatesFakeSeeder');
 
     }
 }
