@@ -10,8 +10,9 @@ Entity no CodeIgniter 4 pode ser considerado uma espécie de ORM (Object-Relatio
 
 ## Database migrate: explicação dos comandos
 
-migrate - monta banco de dados apenas, acionando método up() das migrations
+migrate - monta banco de dados apenas, acionando método up() das migrations. Se criar uma nova migration, use esta opção
 migrate:rollback - desmonta banco de dados apenas, acionando método down() das migrations
+     php spark migrate:rollback -b 1 : exemplo de rolllback que volta para o batch 1
 migrate:refresh - desmonta e monta: faz o 'migrate:rollback' e depois faz o 'migrate'
 migrate:status - gera um relatório dos estados da migrations
 

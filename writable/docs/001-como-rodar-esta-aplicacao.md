@@ -52,7 +52,12 @@ php public\index.php testarenvioemail
 php spark migrate
 
 
-## rode seeds (caso queira popular o banco com dados de exemplo)
+## rode seed obrigatória (dados predefinidos essenciais para o funcionamento da aplicação)
+
+php spark db:seed AppDataSeeder
+
+
+## rode seed opcional (caso queira popular o banco com dados de exemplo)
 
 php spark db:seed TestSeeder
 
