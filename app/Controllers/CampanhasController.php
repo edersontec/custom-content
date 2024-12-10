@@ -22,7 +22,8 @@ class CampanhasController extends BaseController
             
             //Adiciona botões CRUD em cada campanha
             $campanhas[$key]['link_editar'] = '<a href="/campanhas/editar/'.$campanha['id'].'">editar</a>';
-            $campanhas[$key]['link_excluir'] = '<a href="/campanhas/excluir/'.$campanha['id'].'">excluir</a>';  
+            $campanhas[$key]['link_excluir'] = '<a href="/campanhas/excluir/'.$campanha['id'].'">excluir</a>';
+            $campanhas[$key]['link_executar'] = '<a href="/campanhas/executar/'.$campanha['id'].'">executar</a>';
         }
 
         $arrayHeader = array_key_exists(0, $campanhas) ? array_keys($campanhas[0]) : "";
@@ -58,22 +59,10 @@ class CampanhasController extends BaseController
         $data['contatos'] = model(ContatosModel::class)->getContatos();
         $data['templates'] = model(TemplatesModel::class)->getTemplates();
 
-        $db = \Config\Database::connect();
-        $arrayIdsContatosSelecionados =  $db->query("SELECT contatos_id as arrayIdsContatosSelecionados FROM campanhas_contatos_templates WHERE campanhas_id = ".$id)->getResultArray();
-        //converte array multi-dimensional para array unico
-        $data['arrayIdsContatosSelecionados'] = array_map( fn($e) => array_values($e)[0] ?? "", $arrayIdsContatosSelecionados );
+        $arrayCampanha = model(CampanhasModel::class)->getCampanha($id);
+        $data = array_merge($data, $arrayCampanha);
 
-        $arrayIdsTemplatesSelecionados = $db->query("SELECT templates_id as arrayIdsTemplatesSelecionados FROM campanhas_contatos_templates WHERE campanhas_id = ".$id)->getResultArray();
-        //converte array multi-dimensional para array unico
-        $data['arrayIdsTemplatesSelecionados'] = array_map( fn($e) => array_values($e)[0] ?? "", $arrayIdsTemplatesSelecionados );
-
-
-        $campanhasModel = model(CampanhasModel::class);
-        $arrayDetalhesCampanha = $campanhasModel->getCampanha($id);
-
-        $data = array_merge($data, $arrayDetalhesCampanha);
-
-        // echo'<pre>'; print_r($data); echo'</pre>';// dd();
+        // echo '<pre>'.print_r($data, true).'</pre>'; dd();
 
         return
             view('contents/header', $data).
@@ -104,8 +93,19 @@ class CampanhasController extends BaseController
         $campanhasModel = model(CampanhasModel::class);
 
         if( $campanhasModel->removeCampanha($id) ) return redirect('campanhas');
-        throw new Exception("Erro ao deletar");
+        throw new Exception("Erro ao deletar campanha $id");
 
     }
+
+    public function executar($id)
+    {
+
+        $campanhasModel = model(CampanhasModel::class);
+
+        if( $campanhasModel->executaCampanha($id) ) return redirect('campanhas');
+        throw new Exception("Erro ao executar campanha $id");
+
+    }
+
 }
 

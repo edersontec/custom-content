@@ -25,9 +25,9 @@
                     <li>
                         <input
                             type="checkbox"
-                            name="contatosSelecionados[]"
+                            name="idsContatosSelecionados[]"
                             value="<?= $item['id'] ?>"
-                            <?php echo( isset($arrayIdsContatosSelecionados) && in_array($item['id'], $arrayIdsContatosSelecionados) ? "checked" : "" ) ?>
+                            <?php echo( isset($idsContatosSelecionados) && in_array($item['id'], $idsContatosSelecionados) ? "checked" : "" ) ?>
                         />
                         <?php echo implode(", ", $item) ?>  
                     </li>
@@ -41,12 +41,12 @@
 
         <fieldset>
             <legend>Selecione Templates:</legend>
-            <select name="templatesSelecionados[]" size="<?php echo count($templates) ?>">
+            <select name="idsTemplatesSelecionados[]" size="<?php echo count($templates) ?>">
                 
                 <?php foreach ($templates as $item): ?>
                     <option
                         value="<?= $item['id'] ?>"
-                        <?php echo( isset($arrayIdsTemplatesSelecionados) && in_array($item['id'], $arrayIdsTemplatesSelecionados) ? "selected" : "" ) ?>
+                        <?php echo( isset($idsTemplatesSelecionados) && in_array($item['id'], $idsTemplatesSelecionados) ? "selected" : "" ) ?>
                     >
                         <?php echo implode(", ", $item) ?>
                     </option>
@@ -59,6 +59,10 @@
         
         <?php if (isset($id))
             echo '<input type="hidden" name="id" value="'.$id.'">';
+        ?>
+
+        <?php if (isset($campanhas_status_id))
+            echo '<input type="hidden" name="id" value="'.$campanhas_status_id.'">';
         ?>
 
         <p><input type="submit" name="" value="Confirmar"></p>

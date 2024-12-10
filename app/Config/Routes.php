@@ -24,6 +24,7 @@ $routes->get('/campanhas/novo', 'CampanhasController::novo');
 $routes->get('/campanhas/editar/(:num)', 'CampanhasController::editar/$1');
 $routes->get('/campanhas/excluir/(:num)', 'CampanhasController::excluir/$1');
 $routes->post('/campanhas/salvar', 'CampanhasController::salvar');
+$routes->get('/campanhas/executar/(:num)', 'CampanhasController::executar/$1');
 
 $routes->cli('/campanhas', 'CampanhasController::index');
 
