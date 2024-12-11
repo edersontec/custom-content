@@ -62,7 +62,7 @@
         ?>
 
         <?php if (isset($campanhas_status_id))
-            echo '<input type="hidden" name="id" value="'.$campanhas_status_id.'">';
+            echo '<input type="hidden" name="campanhas_status_id" value="'.$campanhas_status_id.'">';
         ?>
 
         <p><input type="submit" name="" value="Confirmar"></p>

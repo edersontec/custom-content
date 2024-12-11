@@ -43,7 +43,9 @@ class TemplatesModel extends Model
 
     public function getTemplates()
     {
-        return $this->findAll();
+        $queryString = "SELECT id, nome, assunto, mensagem FROM templates";
+        return $this->query($queryString)->getResultArray();
+        // return $this->findAll(); // estou fazendo select manual para organizar a ordem das colunas
     }
 
     public function getTemplate($id)
@@ -54,6 +56,12 @@ class TemplatesModel extends Model
     public function removeTemplate($id) : bool
     {
         return $this->delete($id);
+    }
+
+    public function salvaTemplate($data) : bool
+    {
+        // save() = insert() or update()
+        return $this->save($data);
     }
 
 

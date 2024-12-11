@@ -13,7 +13,6 @@ class TemplatesController extends BaseController
         helper('text');
         
         $data['title'] = "Templates";
-
         $data['btn_novo_template'] = '<a href="/templates/novo">[novo template]</a>';
 
         $templatesModel = model(TemplatesModel::class);
@@ -30,10 +29,11 @@ class TemplatesController extends BaseController
             $templates[$key]['link_excluir'] = '<a href="/templates/excluir/'.$template['id'].'">excluir</a>';  
         }
 
-        $arrayHeader = array_key_exists(0, $templates) ? array_keys($templates[0]) : "";
-
         $table = new Table();
+        
+        $arrayHeader = array_key_exists(0, $templates) ? array_keys($templates[0]) : "";
         $table->setHeading($arrayHeader);
+        
         $data['content'] = $table->generate($templates);
 
         return
@@ -47,11 +47,6 @@ class TemplatesController extends BaseController
     {
 
         $data['title'] = "Cadastrar Novo Template";
-
-        // busca todos os contatos
-        
-
-        // busca todos os templates
 
         return
             view('contents/header', $data).
@@ -83,14 +78,10 @@ class TemplatesController extends BaseController
 
         if( empty($data) || in_array("", $data) ) return redirect()->back();
 
-        //print_r($data); dd();
-
         $templatesModel = model(TemplatesModel::class);
-        
-        // save() = insert() or update()
-        $templatesModel->save($data);
 
-        return redirect('templates');
+        if( $templatesModel->salvaTemplate($data) ) return redirect('templates');
+        throw new Exception("Erro ao salvar template");
 
     }
 
@@ -99,7 +90,7 @@ class TemplatesController extends BaseController
         $templatesModel = model(TemplatesModel::class);
 
         if( $templatesModel->removeTemplate($id) ) return redirect('templates');
-        throw new Exception("Erro ao deletar");
+        throw new Exception("Erro ao deletar template");
 
     }
 }

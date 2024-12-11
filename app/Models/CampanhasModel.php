@@ -45,7 +45,7 @@ class CampanhasModel extends Model
 
     public function getCampanhas()
     {
-        $queryString = "SELECT camp.*, stat.nome as status_nome FROM campanhas as camp, campanhas_status as stat WHERE camp.campanhas_status_id == stat.id";
+        $queryString = "SELECT camp.id, camp.nome, camp.data_criacao, stat.nome as status_nome FROM campanhas as camp, campanhas_status as stat WHERE camp.campanhas_status_id == stat.id";
         return $this->query($queryString)->getResultArray();
         // return $this->findAll();
     }
@@ -64,13 +64,13 @@ class CampanhasModel extends Model
     public function getDetalhesCampanha($id)
     {
 
-        // contatos que pertencem a campanha
+        // busca contatos que pertencem a campanha
 
         $arrayContatosSelecionados =  $this->query("SELECT cont.* FROM contatos as cont, campanhas_contatos_templates as camp WHERE cont.id == camp.contatos_id AND camp.campanhas_id = ".$id)->getResultArray();
         $data['contatosSelecionados'] = $arrayContatosSelecionados;
         $data['idsContatosSelecionados'] = array_map( fn($e) => $e['id'] ?? "", $arrayContatosSelecionados );
 
-        // template que pertencem a campanha
+        // busca templates que pertencem a campanha
         // DISTINCT: campanha tem apenas um template
         
         $arrayTemplatesSelecionados =  $this->query("SELECT DISTINCT templ.* FROM templates as templ, campanhas_contatos_templates as camp WHERE templ.id == camp.templates_id AND camp.campanhas_id = ".$id)->getResultArray();
@@ -93,24 +93,23 @@ class CampanhasModel extends Model
         return $this->delete($id);
     }
 
-    public function salvaCampanha($data)
+    public function salvaCampanha($data) : bool
     {
 
         // TODO: persistência N:N feita manualmente para fins didáticos. Encontrar a maneira otimizada de fazer isso
 
         // Passo 1 - salva uma campanha
+
         $campanha['nome'] = $data['nome'];
         $campanha['data_criacao'] = $data['data_criacao'];
         $campanha['campanhas_status_id'] = $data['campanhas_status_id'] ?? CampanhasStatus::NAO_EXECUTADO;
-        
+
         if( isset($data['id']) ){
             $idCampanha = $data['id'];
             $this->update($idCampanha, $campanha); 
         } else {
             $idCampanha = $this->insert($campanha);
         }
-
-        // print_r($data); dd();
 
         // Passo 2 - salva dados na tabela campanhas_contatos_templates (N:N)
         
@@ -127,15 +126,13 @@ class CampanhasModel extends Model
             }
         }
 
-        // print_r($data);
-        // print_r($arrayInsertQueries); dd();
-
         // persiste relacionamento N:N
 
         foreach ($arrayInsertQueries as $sql) {
             $db->query($sql);
-            // echo $db->affectedRows();
         }
+
+        return true;
 
     }
 

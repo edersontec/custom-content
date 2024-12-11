@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\ContatosModel;
+use CodeIgniter\View\Table;
 
 class ContatosController extends BaseController
 {
@@ -10,7 +11,6 @@ class ContatosController extends BaseController
     {
 
         $data['title'] = "Contatos";
-
         $data['btn_novo_contato'] = '<a href="/contatos/novo">[novo contato]</a>';
 
         $contatosModel = model(ContatosModel::class);
@@ -23,10 +23,11 @@ class ContatosController extends BaseController
             $contatos[$key]['link_excluir'] = '<a href="/contatos/excluir/'.$contato['id'].'">excluir</a>';  
         }
 
-        $arrayHeader = array_key_exists(0, $contatos) ? array_keys($contatos[0]) : "";
+        $table = new Table();
 
-        $table = new \CodeIgniter\View\Table();
+        $arrayHeader = array_key_exists(0, $contatos) ? array_keys($contatos[0]) : "";
         $table->setHeading($arrayHeader);
+
         $data['content'] = $table->generate($contatos);
 
         return
@@ -63,7 +64,6 @@ class ContatosController extends BaseController
             view('contents/footer', $data);
     }
 
-
     public function salvar()
     {
 
@@ -71,14 +71,10 @@ class ContatosController extends BaseController
 
         if( empty($data) || in_array("", $data) ) return redirect()->back();
 
-        //print_r($data); dd();
-
         $contatosModel = model(ContatosModel::class);
-        
-        // save() = insert() or update()
-        $contatosModel->save($data);
 
-        return redirect('contatos');
+        if( $contatosModel->salvaContato($data) ) return redirect('contatos');
+        throw new Exception("Erro ao salvar contato");
 
     }
 
@@ -87,7 +83,7 @@ class ContatosController extends BaseController
         $contatosModel = model(ContatosModel::class);
 
         if( $contatosModel->removeContato($id) ) return redirect('contatos');
-        throw new Exception("Erro ao deletar");
+        throw new Exception("Erro ao deletar contato");
 
     }
 }

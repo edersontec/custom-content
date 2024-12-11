@@ -56,5 +56,11 @@ class ContatosModel extends Model
         return $this->delete($id);
     }
 
+    public function salvaContato($data) : bool
+    {
+        // save() = insert() or update()
+        return $this->save($data);
+    }
+
 
 }

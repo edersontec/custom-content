@@ -6,13 +6,14 @@ use App\Models\CampanhasModel;
 use App\Models\ContatosModel;
 use App\Models\TemplatesModel;
 
+use CodeIgniter\View\Table;
+
 class CampanhasController extends BaseController
 {
     public function index(): string
     {
 
         $data['title'] = "Campanhas";
-
         $data['btn_nova_campanha'] = '<a href="/campanhas/novo">[nova campanha]</a>';
 
         $campanhasModel = model(CampanhasModel::class);
@@ -26,10 +27,11 @@ class CampanhasController extends BaseController
             $campanhas[$key]['link_executar'] = '<a href="/campanhas/executar/'.$campanha['id'].'">executar</a>';
         }
 
-        $arrayHeader = array_key_exists(0, $campanhas) ? array_keys($campanhas[0]) : "";
+        $table = new Table();
 
-        $table = new \CodeIgniter\View\Table();
+        $arrayHeader = array_key_exists(0, $campanhas) ? array_keys($campanhas[0]) : "";
         $table->setHeading($arrayHeader);
+        
         $data['content'] = $table->generate($campanhas);
 
         return
@@ -42,7 +44,7 @@ class CampanhasController extends BaseController
     public function novo(): string
     {
 
-        $data['title'] = "Cadastrar Novo Campanha";
+        $data['title'] = "Cadastrar Nova Campanha";
         $data['contatos'] = model(ContatosModel::class)->getContatos();
         $data['templates'] = model(TemplatesModel::class)->getTemplates();
 
@@ -62,8 +64,6 @@ class CampanhasController extends BaseController
         $arrayCampanha = model(CampanhasModel::class)->getCampanha($id);
         $data = array_merge($data, $arrayCampanha);
 
-        // echo '<pre>'.print_r($data, true).'</pre>'; dd();
-
         return
             view('contents/header', $data).
             view('campanhas/form', $data).
@@ -80,10 +80,8 @@ class CampanhasController extends BaseController
 
         $campanhasModel = model(CampanhasModel::class);
         
-        // save() = insert() or update()
-        $campanhasModel->salvaCampanha($data);
-
-        return redirect('campanhas');
+        if( $campanhasModel->salvaCampanha($data) ) return redirect('campanhas');
+        throw new Exception("Erro ao deletar campanha");
 
     }
 
@@ -93,7 +91,7 @@ class CampanhasController extends BaseController
         $campanhasModel = model(CampanhasModel::class);
 
         if( $campanhasModel->removeCampanha($id) ) return redirect('campanhas');
-        throw new Exception("Erro ao deletar campanha $id");
+        throw new Exception("Erro ao deletar campanha");
 
     }
 
@@ -103,7 +101,7 @@ class CampanhasController extends BaseController
         $campanhasModel = model(CampanhasModel::class);
 
         if( $campanhasModel->executaCampanha($id) ) return redirect('campanhas');
-        throw new Exception("Erro ao executar campanha $id");
+        throw new Exception("Erro ao executar campanha");
 
     }
 
