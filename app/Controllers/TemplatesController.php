@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\TemplatesModel;
+use CodeIgniter\View\Table;
 
 class TemplatesController extends BaseController
 {
@@ -19,17 +20,19 @@ class TemplatesController extends BaseController
         $templates = $templatesModel->getTemplates();
 
         foreach ($templates as $key => $template) {
+
+            //TODO: assunto e mensagem devem ser de preenchimento obrigatorios
+            $templates[$key]['assunto'] = character_limiter($template['assunto'], 20, '...');
+            $templates[$key]['mensagem'] = character_limiter($template['mensagem'], 20, '...');
             
             //Adiciona botões CRUD em cada template
             $templates[$key]['link_editar'] = '<a href="/templates/editar/'.$template['id'].'">editar</a>';
             $templates[$key]['link_excluir'] = '<a href="/templates/excluir/'.$template['id'].'">excluir</a>';  
-
-            $templates[$key]['mensagem'] = character_limiter($template['mensagem'], 20, '...');
         }
 
         $arrayHeader = array_key_exists(0, $templates) ? array_keys($templates[0]) : "";
 
-        $table = new \CodeIgniter\View\Table();
+        $table = new Table();
         $table->setHeading($arrayHeader);
         $data['content'] = $table->generate($templates);
 

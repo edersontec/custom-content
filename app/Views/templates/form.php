@@ -9,6 +9,10 @@
         <p>nome: 
             <input type="text" name="nome" value="<?php if (isset($nome)) echo $nome; ?>">
         </p>
+
+        <p>assunto: 
+            <input type="text" name="assunto" value="<?php if (isset($assunto)) echo $assunto; ?>">
+        </p>
         
         <p>mensagem: 
             <textarea name="mensagem" rows="4" cols="50"><?php if (isset($mensagem)) echo $mensagem; ?></textarea>

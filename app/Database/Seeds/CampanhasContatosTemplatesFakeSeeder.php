@@ -8,7 +8,7 @@ use App\Models\CampanhasModel;
 use App\Models\ContatosModel;
 use App\Models\TemplatesModel;
 
-class CampanhasContatosTemplatesSeeder extends Seeder
+class CampanhasContatosTemplatesFakeSeeder extends Seeder
 {
 
     const QTD_REGISTROS = 10;

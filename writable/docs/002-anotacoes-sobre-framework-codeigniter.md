@@ -25,3 +25,21 @@ Arquivo em texto com as variáveis de ambiente. Todas as variáveis definidas ne
 
 Use o caminho relativo até o arquivo .sqlite
 - Exemplo: database.default.database = '../writable/db/data.sqlite'
+
+## Reflexões sobre criar um campo 'assunto' na entidade 'template'
+
+- Qual a melhor forma de atualizar o aplicativo criando um novo campo?
+     1. Migration: Qual a melhor forma de fazer isso?
+          - Opção A: Devo atualizar a migration CREATE TABLE apenas adicionando um novo campo 'assunto'? Penso que se a 'Opção A' (mais simples) seria mais indicada caso o App não fosse lançado, pois bastaria atualizar a migration, usar um migrate:refresh (deletaria dados de teste no banco de dados) e pronto.
+          - Opção B: Devo criar uma nova migration com ALTER TABLE adicionando um novo campo 'assunto'? A 'Opção B' (mais complexa) seria mais indicada caso o App esteja em produção. Neste caso necessitaria adicionar o campo 'assunto' e replicar os mesmos dados do campo 'nome' para não 'quebrar o App'. O envio de email usa o campo 'nome' da campanha, agora vai usar o campo 'assunto' do template e, portanto, este não pode estar vazio.
+          - Penso que a 'opção B' é a melhor alternativa, pois abrange tanto o App em desenvolvimento quanto em produção.
+     2. Um passo-a-passo
+          - criar migration
+          - atualizar seeds
+          - atualizar as etapas do CRUD no controller
+          - atualizar as etapas do CRUD no view
+          - atualizar as etapas do CRUD no model
+          - atualizar as etapas dos objetos relacionados (como CampanhaModel.php)
+          - rodar migration criada
+          - rodar seed de teste
+          - fazer testes

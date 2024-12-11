@@ -159,12 +159,15 @@ class CampanhasModel extends Model
                 $email = service('email');
                 $email->clear();
                 $email->setTo($contato['email']);
-                $email->setSubject('Custom Content - '.$arrayDetalhesCampanha['nome']);
                 
                 // Anexa dados do contato no template
-                // TODO: Tags sem um valor correspondente continuaram na string como estavam. Exemplo: {nao_existe} continuou {nao_existe}
                 $parser = service('parser');
                 $arrayDetalhesTemplate = $arrayDetalhesCampanha['templatesSelecionados'][0];
+                
+                // TODO: Tags sem um valor correspondente continuaram na string como estavam. Exemplo: {nao_existe} continuou {nao_existe}
+                $assunto = $parser->setData($contato)->renderString($arrayDetalhesTemplate['assunto']);
+                $email->setSubject($assunto);
+
                 $mensagem = $parser->setData($contato)->renderString($arrayDetalhesTemplate['mensagem']);
                 $email->setMessage($mensagem);
 

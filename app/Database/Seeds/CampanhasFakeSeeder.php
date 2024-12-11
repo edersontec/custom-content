@@ -4,7 +4,7 @@ namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
-class CampanhasSeeder extends Seeder
+class CampanhasFakeSeeder extends Seeder
 {
 
     const QTD_REGISTROS = 5;
