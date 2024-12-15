@@ -33,6 +33,10 @@ app.baseURL
 php spark db:create data --ext sqlite
 coloque na pasta /writable/db/data.sqlite
 
+php spark db:create tests --ext sqlite
+coloque na pasta /writable/db/tests.sqlite
+ou defina o banco de dados sqlite como ':memory:'
+
 ### mysql
 
 instale mysql, rode o serviço, crie uma database

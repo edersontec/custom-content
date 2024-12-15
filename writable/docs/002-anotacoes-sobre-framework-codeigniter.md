@@ -43,3 +43,20 @@ Use o caminho relativo até o arquivo .sqlite
           - rodar migration criada
           - rodar seed de teste
           - fazer testes
+
+## SQLite e FOREIGN KEY constraint failed
+
+Ao rodar testes unitários em um banco de dados SQLite me deparei com o seguinte erro ao tentar deletar um 'contato' avulso: FOREIGN KEY constraint failed
+Ao pesquisar, descobrir se tratar de 'restrições de chave estrangeira'
+     https://www.sqlite.org/pragma.html#pragma_foreign_keys
+     https://www.sqlite.org/foreignkeys.html
+          "Restrições de chave estrangeira SQL são usadas para impor relacionamentos "exists" entre tabelas".
+
+Sua função é garantir a integridade do banco de dados. Com este PRAGMA habilitado, crie-se um relacionamento mais rigoroso entre chaves estrangeiras. Assim só posso setar chaves estrangeiras numa tabela que realmente existam na outra tabela, bem como não posso deletar linhas os quais tenham chaves estrangeiras atribuidas em outra tabela (como em tabelas N:N).
+No meu caso, com este PRAGMA habilitado, não posso excluir uma linha na tabela 'contato' que esteja atribuido na tabela 'campanhas_contatos_templates' (tabela N:N). Neste caso exigiria resolver/deletar os relacionamentos na tabela 'campanhas_contatos_templates' para depois deletar a linha na tabela 'contato'
+
+Algumas alternativas são:
+- Atualizar/Deletar chaves estrangeiras em outras tabelas
+- Incluir ON DELETE CASCADE na sua definição de chave estrangeira para que seja deletado automaticamente
+- Desabilitar esta restrição. Este PRAGMA vem desabilitado por padrão no SQLite, porém está habilitado nas configurações de banco de dados de teste do CodeIgniter (app/Config/Database.php). Para habilitar ou desabilitar use a seguinte linha no .env
+     database.tests.foreignKeys = false|true
