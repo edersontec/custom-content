@@ -6,6 +6,8 @@ use CodeIgniter\Model;
 use Config\Database;
 use App\Enums\CampanhasStatus;
 
+use CodeIgniter\Exceptions\PageNotFoundException;
+
 class CampanhasModel extends Model
 {
     protected $table            = 'campanhas';
@@ -54,6 +56,11 @@ class CampanhasModel extends Model
     {
 
         $campanha = $this->find($id);
+
+        if ($campanha === null) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+
         $detalhesCampanha = $this->getDetalhesCampanha($id);
         $data = array_merge($campanha, $detalhesCampanha);
 
@@ -85,10 +92,11 @@ class CampanhasModel extends Model
     public function removeCampanha($id) : bool
     {
 
-        $db = Database::connect();
+        // confirma que existe campanha
+        $arrayDetalhesCampanha = $this->getCampanha($id);
 
         $deleteQuery = "DELETE FROM campanhas_contatos_templates WHERE campanhas_id = ".$id;
-        $db->query($deleteQuery);
+        $this->query($deleteQuery);
 
         return $this->delete($id);
     }
@@ -112,12 +120,10 @@ class CampanhasModel extends Model
         }
 
         // Passo 2 - salva dados na tabela campanhas_contatos_templates (N:N)
-        
-        $db = Database::connect();
 
         // TODO: vou fazer update assim: delete e depois insert
         $deleteQuery = "DELETE FROM campanhas_contatos_templates WHERE campanhas_id = ".$idCampanha;
-        $db->query($deleteQuery);
+        $this->query($deleteQuery);
 
         $arrayInsertQueries = [];
         foreach ($data['idsContatosSelecionados'] as $idContatoSelecionado) {
@@ -129,7 +135,7 @@ class CampanhasModel extends Model
         // persiste relacionamento N:N
 
         foreach ($arrayInsertQueries as $sql) {
-            $db->query($sql);
+            $this->query($sql);
         }
 
         return true;

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+use CodeIgniter\Exceptions\PageNotFoundException;
+
 class TemplatesModel extends Model
 {
     protected $table            = 'templates';
@@ -50,11 +52,24 @@ class TemplatesModel extends Model
 
     public function getTemplate($id)
     {
-        return $this->find($id);
+        $template = $this->find($id);
+
+        if ($template === null) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+
+        return $template;
     }
 
     public function removeTemplate($id) : bool
     {
+        // confirma que existe
+        $template = $this->find($id);
+
+        if ($template === null) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+
         return $this->delete($id);
     }
 

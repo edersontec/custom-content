@@ -4,6 +4,8 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+use CodeIgniter\Exceptions\PageNotFoundException;
+
 class ContatosModel extends Model
 {
     protected $table            = 'contatos';
@@ -48,11 +50,24 @@ class ContatosModel extends Model
 
     public function getContato($id)
     {
-        return $this->find($id);
+        $contato = $this->find($id);
+
+        if ($contato === null) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+
+        return $contato;
     }
 
     public function removeContato($id) : bool
     {
+        // confirma que existe
+        $contato = $this->find($id);
+
+        if ($contato === null) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+        
         return $this->delete($id);
     }
 
