@@ -38,9 +38,9 @@ class CriarTabelaCampanhasContatosTemplates extends Migration
 
         $this->forge->addPrimaryKey('id');
 
-        $this->forge->addForeignKey('campanhas_id', 'campanhas', 'id');
-        $this->forge->addForeignKey('contatos_id', 'contatos', 'id');
-        $this->forge->addForeignKey('templates_id', 'templates', 'id');
+        $this->forge->addForeignKey('campanhas_id', 'campanhas', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('contatos_id', 'contatos', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('templates_id', 'templates', 'id', 'CASCADE', 'CASCADE');
 
         $this->forge->createTable('campanhas_contatos_templates');
     }
