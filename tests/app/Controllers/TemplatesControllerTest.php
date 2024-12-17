@@ -34,4 +34,36 @@ final class TemplatesControllerTest extends CIUnitTestCase
 
     }
 
+    public function testDeveConseguirAcessarRotasDeTemplatesComSucesso(): void
+    {
+        
+        $expectedDom = '<h1>Templates</h1>';
+        $result = $this->call('get', '/templates');
+        // CLI::write( print_r($result->getBody(), true) );
+        $this->assertTrue( $result->see($expectedDom) );
+        
+        $expectedDom = '<h1>Cadastrar novo template</h1>';
+        $result = $this->call('get', '/templates/novo');
+        // CLI::write( print_r($result->getBody(), true) );
+        $this->assertTrue( $result->see($expectedDom) );
+
+        $expectedDom = '<h1>Editar template</h1>';
+        $result = $this->call('get', '/templates/editar/1');
+        // CLI::write( print_r($result->getBody(), true) );
+        $this->assertTrue( $result->see($expectedDom) );
+        
+        // Esta rota não retorna status 200 diretamente porque processa e depois redireciona para uma view.
+        // Não encontrei no Codeigniter uma forma de usar FOLLOWLOCATION durante teste diretamente no Controller.
+        $expectedStatus = 302;
+        $result = $this->call('post', '/templates/salvar');
+        $result->assertStatus($expectedStatus);
+
+        // Esta rota não retorna status 200 diretamente porque processa e depois redireciona para uma view.
+        // Não encontrei no Codeigniter uma forma de usar FOLLOWLOCATION durante teste diretamente no Controller.
+        $expectedStatus = 302;
+        $result = $this->call('get', '/templates/excluir/1');
+        $result->assertStatus($expectedStatus);
+
+    }
+
 }

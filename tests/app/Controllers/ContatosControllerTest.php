@@ -34,4 +34,36 @@ final class ContatosControllerTest extends CIUnitTestCase
 
     }
 
+    public function testDeveConseguirAcessarRotasDeContatosComSucesso(): void
+    {
+        
+        $expectedDom = '<h1>Contatos</h1>';
+        $result = $this->call('get', '/contatos');
+        // CLI::write( print_r($result->getBody(), true) );
+        $this->assertTrue( $result->see($expectedDom) );
+        
+        $expectedDom = '<h1>Cadastrar novo contato</h1>';
+        $result = $this->call('get', '/contatos/novo');
+        // CLI::write( print_r($result->getBody(), true) );
+        $this->assertTrue( $result->see($expectedDom) );
+
+        $expectedDom = '<h1>Editar contato</h1>';
+        $result = $this->call('get', '/contatos/editar/1');
+        // CLI::write( print_r($result->getBody(), true) );
+        $this->assertTrue( $result->see($expectedDom) );
+        
+        // Esta rota não retorna status 200 diretamente porque processa e depois redireciona para uma view.
+        // Não encontrei no Codeigniter uma forma de usar FOLLOWLOCATION durante teste diretamente no Controller.
+        $expectedStatus = 302;
+        $result = $this->call('post', '/contatos/salvar');
+        $result->assertStatus($expectedStatus);
+
+        // Esta rota não retorna status 200 diretamente porque processa e depois redireciona para uma view.
+        // Não encontrei no Codeigniter uma forma de usar FOLLOWLOCATION durante teste diretamente no Controller.
+        $expectedStatus = 302;
+        $result = $this->call('get', '/contatos/excluir/1');
+        $result->assertStatus($expectedStatus);
+
+    }
+
 }
