@@ -4,25 +4,26 @@
 
     <!--<h1><?= esc($title) ?></h1>-->
 
-    <form action="/templates/salvar" method="POST">
+    <?= validation_list_errors() ?>
+
+    <?= form_open('templates/salvar') ?>
         
-        <p>nome: 
-            <input type="text" name="nome" value="<?php if (isset($nome)) echo $nome; ?>">
+        <p>Nome: 
+            <input type="text" name="nome" value="<?= set_value('nome', @$nome) ?>">
         </p>
 
-        <p>assunto: 
-            <input type="text" name="assunto" value="<?php if (isset($assunto)) echo $assunto; ?>">
+        <p>Assunto: 
+            <input type="text" name="assunto" value="<?= set_value('assunto', @$assunto) ?>">
         </p>
         
-        <p>mensagem: 
-            <textarea name="mensagem" rows="4" cols="50"><?php if (isset($mensagem)) echo $mensagem; ?></textarea>
+        <p>Mensagem: 
+            <textarea name="mensagem" rows="4" cols="50"><?= set_value('mensagem', @$mensagem) ?></textarea>
         </p>
         
-        <?php if (isset($id))
-            echo '<input type="hidden" name="id" value="'.$id.'">';
-        ?>
+        <input type="hidden" name="id" value="<?= set_value('id', @$id) ?>">
 
         <p><input type="submit" name="" value="Confirmar"></p>
-    </form>
+    
+    <?= form_close() ?>
 
 </section>

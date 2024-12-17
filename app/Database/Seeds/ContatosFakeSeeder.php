@@ -8,7 +8,7 @@ use CodeIgniter\Database\Seeder;
 class ContatosFakeSeeder extends Seeder
 {
 
-    const QTD_REGISTROS = 50;
+    const QTD_REGISTROS = 10;
 
     const IS_OBTER_SEMPRE_MESMOS_DADOS = true;
     const NUMERO_SEED = 1234;

@@ -7,10 +7,10 @@ use CodeIgniter\View\Table;
 
 class TemplatesController extends BaseController
 {
+    protected $helpers = ['form', 'text'];
+
     public function index(): string
     {
-
-        helper('text');
         
         $data['title'] = "Templates";
         $data['btn_novo_template'] = '<a href="/templates/novo">[novo template]</a>';
@@ -74,13 +74,29 @@ class TemplatesController extends BaseController
     public function salvar()
     {
 
+        // validação
+        $rules = [
+            'nome' => 'required|max_length[100]',
+            'assunto' => 'required|max_length[100]',
+            'mensagem' => 'required|max_length[1000]',
+            'id' => 'permit_empty|is_natural',
+        ];
+        
         $data = $this->request->getPost();
 
-        if( empty($data) || in_array("", $data) ) return redirect()->back();
+        if ( !$this->validateData($data, $rules) ) {
+            return redirect()->back()->withInput();
+        }
+
+        $validData = $this->validator->getValidated();
+
+        // sanitização
+        if( isset($validData['id']) && empty($validData['id']) ) unset($validData['id']);
+        $validData = esc($validData);
 
         $templatesModel = model(TemplatesModel::class);
 
-        if( $templatesModel->salvaTemplate($data) ) return redirect('templates');
+        if( $templatesModel->salvaTemplate($validData) ) return redirect('templates');
         throw new Exception("Erro ao salvar template");
 
     }

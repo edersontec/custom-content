@@ -10,6 +10,8 @@ use CodeIgniter\View\Table;
 
 class CampanhasController extends BaseController
 {
+    protected $helpers = ['form'];
+
     public function index(): string
     {
 
@@ -74,13 +76,29 @@ class CampanhasController extends BaseController
     public function salvar()
     {
 
+        // validação
+        $rules = [
+            'nome' => 'required|max_length[100]',
+            'idsContatosSelecionados.*' => 'required|max_length[10]|is_natural',
+            'idsTemplatesSelecionados.*' => 'required|max_length[10]|is_natural',
+            'data_criacao' => 'permit_empty|valid_date[Y-m-d H:i:s]',
+            'id' => 'permit_empty|is_natural',
+            'campanhas_status_id' => 'permit_empty|is_natural',
+        ];
+
         $data = $this->request->getPost();
 
-        if( empty($data) || in_array("", $data) ) return redirect()->back();
+        if ( !$this->validateData($data, $rules) ) {
+            return redirect()->back()->withInput();
+        }
+ 
+        // sanitização
+        $validData = $this->validator->getValidated();
+        $validData = esc($validData);
 
         $campanhasModel = model(CampanhasModel::class);
         
-        if( $campanhasModel->salvaCampanha($data) ) return redirect('campanhas');
+        if( $campanhasModel->salvaCampanha($validData) ) return redirect('campanhas');
         throw new Exception("Erro ao deletar campanha");
 
     }

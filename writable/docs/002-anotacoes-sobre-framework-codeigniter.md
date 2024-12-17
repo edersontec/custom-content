@@ -60,3 +60,9 @@ Algumas alternativas são:
 - Incluir ON DELETE CASCADE na sua definição de chave estrangeira para que seja deletado automaticamente
 - Desabilitar esta restrição. Este PRAGMA vem desabilitado por padrão no SQLite, porém está habilitado nas configurações de banco de dados de teste do CodeIgniter (app/Config/Database.php). Para habilitar ou desabilitar use a seguinte linha no .env
      database.tests.foreignKeys = false|true
+
+## Usar a mesma view e form para criar e editar
+
+Exemplo: <input type="text" name="nome" value="<?= set_value('nome', @$nome) ?>">
+     https://codeigniter.com/user_guide/helpers/form_helper.html#set_value
+Explicação: o valor setado OU será o que está no retorno 'withInput()' dos dados submetidos que falharam durante a validação dos dados no controller (função old que está incluso em set_value) OU será setado o segundo parâmetro de set_value, que no caso é o que veio do controller normalmente. Está suprimido erro com @ pois este valor só será enviado para a view apenas se for para edição (para criação não virá valor)

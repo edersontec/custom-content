@@ -7,6 +7,8 @@ use CodeIgniter\View\Table;
 
 class ContatosController extends BaseController
 {
+    protected $helpers = ['form'];
+
     public function index(): string
     {
 
@@ -67,13 +69,28 @@ class ContatosController extends BaseController
     public function salvar()
     {
 
+        // validação
+        $rules = [
+            'nome' => 'required|max_length[100]',
+            'email' => 'required|max_length[100]|valid_email',
+            'id' => 'permit_empty|is_natural',
+        ];
+
         $data = $this->request->getPost();
 
-        if( empty($data) || in_array("", $data) ) return redirect()->back();
+        if ( !$this->validateData($data, $rules) ) {
+            return redirect()->back()->withInput();
+        }
+
+        $validData = $this->validator->getValidated();
+        
+        // sanitização
+        if( isset($validData['id']) && empty($validData['id']) ) unset($validData['id']);
+        $validData = esc($validData);
 
         $contatosModel = model(ContatosModel::class);
 
-        if( $contatosModel->salvaContato($data) ) return redirect('contatos');
+        if( $contatosModel->salvaContato($validData) ) return redirect('contatos');
         throw new Exception("Erro ao salvar contato");
 
     }

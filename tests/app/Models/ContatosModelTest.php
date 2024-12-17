@@ -31,7 +31,7 @@ final class ContatosModelTest extends CIUnitTestCase
         $contatoModel = new ContatosModel();
         $arrayContatos = $contatoModel->getContatos();
 
-        $expectedCount = 50;
+        $expectedCount = 10;
         $this->assertCount($expectedCount, $arrayContatos);
 
     }

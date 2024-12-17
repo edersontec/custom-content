@@ -109,13 +109,15 @@ class CampanhasModel extends Model
         // Passo 1 - salva uma campanha
 
         $campanha['nome'] = $data['nome'];
-        $campanha['data_criacao'] = $data['data_criacao'];
-        $campanha['campanhas_status_id'] = $data['campanhas_status_id'] ?? CampanhasStatus::NAO_EXECUTADO;
+        $campanha['data_criacao'] = isset($data['data_criacao']) && !empty($data['data_criacao']) ? $data['data_criacao'] : date("Y-m-d H:i:s");
+        $campanha['campanhas_status_id'] = isset($data['campanhas_status_id']) && !empty($data['campanhas_status_id']) ? $data['campanhas_status_id'] : CampanhasStatus::NAO_EXECUTADO;
 
-        if( isset($data['id']) ){
+        if( isset($data['id']) && !empty($data['id']) ){
+            // editar registro
             $idCampanha = $data['id'];
-            $this->update($idCampanha, $campanha); 
+            $this->update($idCampanha, $campanha);
         } else {
+            // novo registro
             $idCampanha = $this->insert($campanha);
         }
 

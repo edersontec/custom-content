@@ -4,21 +4,22 @@
 
     <!--<h1><?= esc($title) ?></h1>-->
 
-    <form action="/contatos/salvar" method="POST">
+    <?= validation_list_errors() ?>
+
+    <?= form_open('contatos/salvar') ?>
         
-        <p>nome: 
-            <input type="text" name="nome" value="<?php if (isset($nome)) echo $nome; ?>">
+        <p>Nome: 
+            <input type="text" name="nome" value="<?= set_value('nome', @$nome) ?>">
         </p>
 
-        <p>email: 
-            <input type="text" name="email" value="<?php if (isset($email)) echo $email; ?>">
+        <p>Email: 
+            <input type="text" name="email" value="<?= set_value('email', @$email) ?>">
         </p>
         
-        <?php if (isset($id))
-            echo '<input type="hidden" name="id" value="'.$id.'">';
-        ?>
+        <input type="hidden" name="id" value="<?= set_value('id', @$id) ?>">
 
         <p><input type="submit" name="" value="Confirmar"></p>
-    </form>
+    
+    <?= form_close() ?>
 
 </section>
