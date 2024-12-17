@@ -10,13 +10,15 @@ use CodeIgniter\View\Table;
 
 class CampanhasController extends BaseController
 {
+    private const DICA = "Uma campanha mescla contatos e um template. Seu objetivo é disparar uma mensagem personalizada para cada contato selecionado";
+
     protected $helpers = ['form'];
 
     public function index(): string
     {
 
-        $data['title'] = "Campanhas";
-        $data['btn_nova_campanha'] = '<a href="/campanhas/novo">[nova campanha]</a>';
+        $data['titulo'] = "Campanhas";
+        $data['subtitulo'] = self::DICA;
 
         $campanhasModel = model(CampanhasModel::class);
         $campanhas = $campanhasModel->getCampanhas();
@@ -34,7 +36,7 @@ class CampanhasController extends BaseController
         $arrayHeader = array_key_exists(0, $campanhas) ? array_keys($campanhas[0]) : "";
         $table->setHeading($arrayHeader);
         
-        $data['content'] = $table->generate($campanhas);
+        $data['conteudo'] = $table->generate($campanhas);
 
         return
             view('contents/header', $data).
@@ -46,7 +48,8 @@ class CampanhasController extends BaseController
     public function novo(): string
     {
 
-        $data['title'] = "Cadastrar Nova Campanha";
+        $data['titulo'] = "Cadastrar nova campanha";
+        $data['subtitulo'] = self::DICA;
         $data['contatos'] = model(ContatosModel::class)->getContatos();
         $data['templates'] = model(TemplatesModel::class)->getTemplates();
 
@@ -59,7 +62,8 @@ class CampanhasController extends BaseController
     public function editar($id): string
     {
 
-        $data['title'] = "Editar Campanha";
+        $data['titulo'] = "Editar campanha";
+        $data['subtitulo'] = self::DICA;
         $data['contatos'] = model(ContatosModel::class)->getContatos();
         $data['templates'] = model(TemplatesModel::class)->getTemplates();
 

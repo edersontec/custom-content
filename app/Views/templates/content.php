@@ -2,10 +2,12 @@
 
 <section>
 
-    <!--<h1><?= esc($title) ?></h1>-->
+    <p>
+        <button type="button" class="btn btn-primary">
+            <a href="/templates/novo">Novo template</a>
+        </button>
+    </p>
 
-    <?= $btn_novo_template ?>
-
-    <?= $content ?>
+    <?= $conteudo ?>
 
 </section>

@@ -7,13 +7,15 @@ use CodeIgniter\View\Table;
 
 class TemplatesController extends BaseController
 {
+    private const DICA = "Um template é mensagem padronizada. É possível produzir mensagens personalizadas adicionando tags de contato";
+
     protected $helpers = ['form', 'text'];
 
     public function index(): string
     {
         
-        $data['title'] = "Templates";
-        $data['btn_novo_template'] = '<a href="/templates/novo">[novo template]</a>';
+        $data['titulo'] = "Templates";
+        $data['subtitulo'] = self::DICA;
 
         $templatesModel = model(TemplatesModel::class);
         $templates = $templatesModel->getTemplates();
@@ -34,7 +36,7 @@ class TemplatesController extends BaseController
         $arrayHeader = array_key_exists(0, $templates) ? array_keys($templates[0]) : "";
         $table->setHeading($arrayHeader);
         
-        $data['content'] = $table->generate($templates);
+        $data['conteudo'] = $table->generate($templates);
 
         return
             view('contents/header', $data).
@@ -46,7 +48,8 @@ class TemplatesController extends BaseController
     public function novo(): string
     {
 
-        $data['title'] = "Cadastrar Novo Template";
+        $data['titulo'] = "Cadastrar novo template";
+        $data['subtitulo'] = self::DICA;
 
         return
             view('contents/header', $data).
@@ -57,7 +60,8 @@ class TemplatesController extends BaseController
     public function editar($id): string
     {
 
-        $data['title'] = "Editar Template";
+        $data['titulo'] = "Editar template";
+        $data['subtitulo'] = self::DICA;
 
         $templatesModel = model(TemplatesModel::class);
         $arrayDetalhesTemplate = $templatesModel->getTemplate($id);

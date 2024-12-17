@@ -7,13 +7,15 @@ use CodeIgniter\View\Table;
 
 class ContatosController extends BaseController
 {
+    private const DICA = "Um contato é uma pessoa ou empresa com a qual você deseja enviar mensagens personalizadas";
+
     protected $helpers = ['form'];
 
     public function index(): string
     {
 
-        $data['title'] = "Contatos";
-        $data['btn_novo_contato'] = '<a href="/contatos/novo">[novo contato]</a>';
+        $data['titulo'] = "Contatos";
+        $data['subtitulo'] = self::DICA;
 
         $contatosModel = model(ContatosModel::class);
         $contatos = $contatosModel->getContatos();
@@ -30,7 +32,7 @@ class ContatosController extends BaseController
         $arrayHeader = array_key_exists(0, $contatos) ? array_keys($contatos[0]) : "";
         $table->setHeading($arrayHeader);
 
-        $data['content'] = $table->generate($contatos);
+        $data['conteudo'] = $table->generate($contatos);
 
         return
             view('contents/header', $data).
@@ -42,7 +44,8 @@ class ContatosController extends BaseController
     public function novo(): string
     {
 
-        $data['title'] = "Cadastrar Novo Contato";
+        $data['titulo'] = "Cadastrar novo contato";
+        $data['subtitulo'] = self::DICA;
 
         return
             view('contents/header', $data).
@@ -53,7 +56,8 @@ class ContatosController extends BaseController
     public function editar($id): string
     {
 
-        $data['title'] = "Editar Contato";
+        $data['titulo'] = "Editar contato";
+        $data['subtitulo'] = self::DICA;
 
         $contatosModel = model(ContatosModel::class);
         $arrayDetalhesContato = $contatosModel->getContato($id);

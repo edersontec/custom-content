@@ -4,11 +4,13 @@ namespace App\Controllers;
 
 class HomeController extends BaseController
 {
+    private const DICA = "";
+
     public function index(): string
     {
 
-        $data['title'] = "Home";
-        $data['content'] = "Seja bem vindo!";
+        $data['titulo'] = "Home";
+        $data['conteudo'] = "Seja bem vindo!";
 
         return
             view('contents/header', $data).

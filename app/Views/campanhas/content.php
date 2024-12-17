@@ -2,10 +2,12 @@
 
 <section>
 
-    <!--<h1><?= esc($title) ?></h1>-->
+    <p>
+        <button type="button" class="btn btn-primary">
+            <a href="/campanhas/novo">Nova campanha</a>
+        </button>
+    </p>
 
-    <?= $btn_nova_campanha ?>
-
-    <?= $content ?>
+    <?= $conteudo ?>
 
 </section>
