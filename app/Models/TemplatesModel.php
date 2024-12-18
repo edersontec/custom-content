@@ -42,15 +42,20 @@ class TemplatesModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    public function getQuantTemplates(): int
+    {
+        $queryString = "SELECT COUNT(id) AS total_registros FROM templates";
+        return $this->query($queryString)->getResultArray()[0]['total_registros'];
+    }
 
-    public function getTemplates()
+    public function getTemplates(): array
     {
         $queryString = "SELECT id, nome, assunto, mensagem FROM templates";
         return $this->query($queryString)->getResultArray();
         // return $this->findAll(); // estou fazendo select manual para organizar a ordem das colunas
     }
 
-    public function getTemplate($id)
+    public function getTemplate($id): array
     {
         $template = $this->find($id);
 
@@ -61,7 +66,7 @@ class TemplatesModel extends Model
         return $template;
     }
 
-    public function removeTemplate($id) : bool
+    public function removeTemplate($id): bool
     {
         // confirma que existe
         $template = $this->find($id);
@@ -73,7 +78,7 @@ class TemplatesModel extends Model
         return $this->delete($id);
     }
 
-    public function salvaTemplate($data) : bool
+    public function salvaTemplate($data): bool
     {
         // save() = insert() or update()
         return $this->save($data);

@@ -17,6 +17,9 @@ class CampanhasController extends BaseController
     public function index(): string
     {
 
+        $data['hasTabelas'] = true;
+        $data['hasIcones'] = true;
+
         $data['titulo'] = "Campanhas";
         $data['subtitulo'] = self::DICA;
 
@@ -26,15 +29,18 @@ class CampanhasController extends BaseController
         foreach ($campanhas as $key => $campanha) {
             
             //Adiciona botões CRUD em cada campanha
-            $campanhas[$key]['link_editar'] = '<a href="/campanhas/editar/'.$campanha['id'].'">editar</a>';
-            $campanhas[$key]['link_excluir'] = '<a href="/campanhas/excluir/'.$campanha['id'].'">excluir</a>';
-            $campanhas[$key]['link_executar'] = '<a href="/campanhas/executar/'.$campanha['id'].'">executar</a>';
+            $campanhas[$key]['link_editar'] = '<a href="/campanhas/editar/'.$campanha['id'].'" class="btn btn-secondary"><i class="bi bi-pen"></a>';
+            $campanhas[$key]['link_excluir'] = '<a href="/campanhas/excluir/'.$campanha['id'].'" class="btn btn-secondary"><i class="bi bi-trash"></a>';  
+            $campanhas[$key]['link_executar'] = '<a href="/campanhas/executar/'.$campanha['id'].'" class="btn btn-secondary"><i class="bi bi-send"></a>'; 
         }
 
         $table = new Table();
 
         $arrayHeader = array_key_exists(0, $campanhas) ? array_keys($campanhas[0]) : "";
         $table->setHeading($arrayHeader);
+
+        $template = [ 'table_open' => '<table id="tabela_campanhas">' ];
+        $table->setTemplate($template);
         
         $data['conteudo'] = $table->generate($campanhas);
 

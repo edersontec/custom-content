@@ -14,6 +14,9 @@ class ContatosController extends BaseController
     public function index(): string
     {
 
+        $data['hasTabelas'] = true;
+        $data['hasIcones'] = true;
+
         $data['titulo'] = "Contatos";
         $data['subtitulo'] = self::DICA;
 
@@ -23,14 +26,17 @@ class ContatosController extends BaseController
         foreach ($contatos as $key => $contato) {
             
             //Adiciona botões CRUD em cada contato
-            $contatos[$key]['link_editar'] = '<a href="/contatos/editar/'.$contato['id'].'">editar</a>';
-            $contatos[$key]['link_excluir'] = '<a href="/contatos/excluir/'.$contato['id'].'">excluir</a>';  
+            $contatos[$key]['link_editar'] = '<a href="/contatos/editar/'.$contato['id'].'" class="btn btn-secondary"><i class="bi bi-pen"></a>';
+            $contatos[$key]['link_excluir'] = '<a href="/contatos/excluir/'.$contato['id'].'" class="btn btn-secondary"><i class="bi bi-trash"></a>';  
         }
 
         $table = new Table();
 
         $arrayHeader = array_key_exists(0, $contatos) ? array_keys($contatos[0]) : "";
         $table->setHeading($arrayHeader);
+
+        $template = [ 'table_open' => '<table id="tabela_contatos">' ];
+        $table->setTemplate($template);
 
         $data['conteudo'] = $table->generate($contatos);
 

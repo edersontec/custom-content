@@ -3,9 +3,7 @@
 <section>
 
     <p>
-        <button type="button" class="btn btn-primary">
-            <a href="/templates/novo">Novo template</a>
-        </button>
+        <a href="/templates/novo" class="btn btn-primary">Novo template</a>
     </p>
 
     <?= $conteudo ?>

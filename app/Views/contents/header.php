@@ -8,6 +8,17 @@
     
     <link rel="shortcut icon" type="image/png" href="/imgs/favicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <?php if (isset($hasIcones) && $hasIcones): ?>
+        <!-- inclusão de CSS de icones -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <?php endif; ?>
+
+    <?php if (isset($hasTabelas) && $hasTabelas): ?>
+        <!-- inclusão de CSS de tabelas -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.5/dist/bootstrap-table.min.css">
+    <?php endif; ?>
+
     <link href="/styles/main.css" rel="stylesheet">
 
 </head>

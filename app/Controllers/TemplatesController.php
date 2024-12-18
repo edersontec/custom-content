@@ -13,6 +13,9 @@ class TemplatesController extends BaseController
 
     public function index(): string
     {
+
+        $data['hasTabelas'] = true;
+        $data['hasIcones'] = true;
         
         $data['titulo'] = "Templates";
         $data['subtitulo'] = self::DICA;
@@ -27,14 +30,17 @@ class TemplatesController extends BaseController
             $templates[$key]['mensagem'] = character_limiter($template['mensagem'], 20, '...');
             
             //Adiciona botões CRUD em cada template
-            $templates[$key]['link_editar'] = '<a href="/templates/editar/'.$template['id'].'">editar</a>';
-            $templates[$key]['link_excluir'] = '<a href="/templates/excluir/'.$template['id'].'">excluir</a>';  
+            $templates[$key]['link_editar'] = '<a href="/templates/editar/'.$template['id'].'" class="btn btn-secondary"><i class="bi bi-pen"></a>';
+            $templates[$key]['link_excluir'] = '<a href="/templates/excluir/'.$template['id'].'" class="btn btn-secondary"><i class="bi bi-trash"></a>';  
         }
 
         $table = new Table();
         
         $arrayHeader = array_key_exists(0, $templates) ? array_keys($templates[0]) : "";
         $table->setHeading($arrayHeader);
+
+        $template = [ 'table_open' => '<table id="tabela_templates">' ];
+        $table->setTemplate($template);
         
         $data['conteudo'] = $table->generate($templates);
 

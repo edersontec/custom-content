@@ -42,8 +42,13 @@ class ContatosModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    public function getQuantContatos(): int
+    {
+        $queryString = "SELECT COUNT(id) AS total_registros FROM contatos";
+        return $this->query($queryString)->getResultArray()[0]['total_registros'];
+    }
 
-    public function getContatos()
+    public function getContatos(): array
     {
         return $this->findAll();
     }
@@ -59,7 +64,7 @@ class ContatosModel extends Model
         return $contato;
     }
 
-    public function removeContato($id) : bool
+    public function removeContato($id): bool
     {
         // confirma que existe
         $contato = $this->find($id);
@@ -71,7 +76,7 @@ class ContatosModel extends Model
         return $this->delete($id);
     }
 
-    public function salvaContato($data) : bool
+    public function salvaContato($data): bool
     {
         // save() = insert() or update()
         return $this->save($data);

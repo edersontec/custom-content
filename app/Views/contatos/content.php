@@ -3,9 +3,7 @@
 <section>
 
     <p>
-        <button type="button" class="btn btn-primary">
-            <a href="/contatos/novo">Novo contato</a>
-        </button>
+        <a href="/contatos/novo" class="btn btn-primary">Novo contato</a>
     </p>
 
     <?= $conteudo ?>

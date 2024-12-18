@@ -44,15 +44,19 @@ class CampanhasModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    public function getQuantCampanhas(): int
+    {
+        $queryString = "SELECT COUNT(id) AS total_registros FROM campanhas";
+        return $this->query($queryString)->getResultArray()[0]['total_registros'];
+    }
 
-    public function getCampanhas()
+    public function getCampanhas(): array
     {
         $queryString = "SELECT camp.id, camp.nome, camp.data_criacao, stat.nome as status_nome FROM campanhas as camp, campanhas_status as stat WHERE camp.campanhas_status_id == stat.id";
         return $this->query($queryString)->getResultArray();
-        // return $this->findAll();
     }
 
-    public function getCampanha($id)
+    public function getCampanha($id): array
     {
 
         $campanha = $this->find($id);
@@ -68,7 +72,7 @@ class CampanhasModel extends Model
 
     }
 
-    public function getDetalhesCampanha($id)
+    public function getDetalhesCampanha($id): array
     {
 
         // busca contatos que pertencem a campanha
@@ -89,7 +93,7 @@ class CampanhasModel extends Model
     }
 
 
-    public function removeCampanha($id) : bool
+    public function removeCampanha($id): bool
     {
 
         // confirma que existe campanha
@@ -101,7 +105,7 @@ class CampanhasModel extends Model
         return $this->delete($id);
     }
 
-    public function salvaCampanha($data) : bool
+    public function salvaCampanha($data): bool
     {
 
         // TODO: persistência N:N feita manualmente para fins didáticos. Encontrar a maneira otimizada de fazer isso
@@ -144,7 +148,7 @@ class CampanhasModel extends Model
 
     }
 
-    public function executaCampanha($id) : bool
+    public function executaCampanha($id): bool
     {
 
         $contErros = 0;
