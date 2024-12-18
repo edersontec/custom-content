@@ -1,8 +1,8 @@
 <!-- CONTENT -->
 
-<div class="container-md">
-
-    <section>
+<section>
+    
+    <div class="container-md">
 
         <?= validation_list_errors() ?>
 
@@ -28,6 +28,6 @@
         
         <?= form_close() ?>
 
-    </section>
-
-</div>
+    </div>
+    
+</section>
