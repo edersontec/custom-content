@@ -29,7 +29,7 @@ Custom Content é um projeto web para o envio (atualmente apenas por email) de m
 
 As motivações deste projeto são:
 - Criar uma versão web apartir das experiências de uma aplicação em linha de comando que desenvolvi para envio de emails em lote.
-- Estudar as funcionalidades do framework PHP CodeIgniter
+- Estudar as funcionalidades do framework PHP CodeIgniter.
 
 ## Status do projeto
 
@@ -45,25 +45,25 @@ Versão 0.1: Primeira versão funcional, é possível gerenciar contatos, templa
 ## Telas do sistema
 
 <a href="prints/tela-home.png" target="_blank">
-    <img src="prints/tela-home.png" width="300" />
+    <img src="prints/tela-home.png" width="200" />
 </a>
 <a href="prints/tela-contatos.png" target="_blank">
-    <img src="prints/tela-contatos.png" width="300" />
+    <img src="prints/tela-contatos.png" width="200" />
 </a>
 <a href="prints/tela-contatos-novo.png" target="_blank">
-    <img src="prints/tela-contatos-novo.png" width="300" />
+    <img src="prints/tela-contatos-novo.png" width="200" />
 </a>
 <a href="prints/tela-templates.png" target="_blank">
-    <img src="prints/tela-templates.png" width="300" />
+    <img src="prints/tela-templates.png" width="200" />
 </a>
 <a href="prints/tela-templates-novo.png" target="_blank">
-    <img src="prints/tela-templates-novo.png" width="300" />
+    <img src="prints/tela-templates-novo.png" width="200" />
 </a>
 <a href="prints/tela-campanhas.png" target="_blank">
-    <img src="prints/tela-campanhas.png" width="300" />
+    <img src="prints/tela-campanhas.png" width="200" />
 </a>
 <a href="prints/tela-campanhas-novo.png" target="_blank">
-    <img src="prints/tela-campanhas-novo.png" width="300" />
+    <img src="prints/tela-campanhas-novo.png" width="200" />
 </a>
 
 ## Aprendizados
@@ -94,8 +94,10 @@ Versão 0.1: Primeira versão funcional, é possível gerenciar contatos, templa
 
 1. Garanta que o PHP, git, Composer e MySQL estejam instalados
     - para usar sqlite, habilite as suas extensões no php (arquivo php.ini), descomente as seguintes linhas:
-	extension=pdo_sqlite
-	extension=sqlite3
+	    ```
+        extension=pdo_sqlite
+	    extension=sqlite3
+        ```
 
 2. Clone o repositório: git clone https://github.com/edersontec/custom-content.git
 
@@ -105,40 +107,55 @@ Versão 0.1: Primeira versão funcional, é possível gerenciar contatos, templa
     - O arquivo *env.example* é um arquivo de exemplo para auxiliar na instalação da aplicação, basta preencher as informações
     - Renomeie o arquivo *env.example* para *.env*
     - Decida qual banco de dados irá usar: SQLite ou MySQL
-        - SQLite: gere o arquivo de banco de dados utilizando o Spark (utilitário de linha de comando do CodeIgniter) e coloque na pasta /writable/db/
-        php spark db:create data --ext sqlite
-        php spark db:create tests --ext sqlite *ou defina ':memory:' para executar um banco de dados SQLite na memória*
+        - SQLite: gere os arquivos de banco de dados utilizando o Spark (utilitário de linha de comando do CodeIgniter) e coloque os na pasta /writable/db/
+            ```
+            php spark db:create data --ext sqlite
+            php spark db:create tests --ext sqlite
+            ```
+            - *Se quiser um banco de dados SQLite de testes na memória, defina ':memory:'*
         - MySQL: crie uma database, descomente as linhas, adicione as configurações do seu banco de dados MySQL e comente as linhas relacionadas as configurações do SQLite
     - Configure o serviço SMTP de envio dos emails
         - Utilize alguns [serviços SMTP gratuitos que testei](#lista-de-serviços-smtp-gratuitos) ou algum outro que deseje
 
 5. Teste o serviço SMTP (a proposta é enviar um email de teste)
+    ```
     cd custom-content
     php public\index.php testarenvioemail
+    ```
 
 6. Execute as Migrations (para criar as tabelas do banco de dados)
+    ```
     cd custom-content
     php spark migrate
+    ```
 
 7. Execute a Seed AppDataSeeder (para popular o banco com dados predefinidos essenciais para o funcionamento da aplicação)
+    ```
     cd custom-content
     php spark db:seed AppDataSeeder
+    ```
 
 8. (opcional) Execute a Seed TestSeeder (caso queira popular o banco com dados de exemplo)
+    ```
     cd custom-content
     php spark db:seed TestSeeder
+    ```
 
 9. (opcional) Limpe os dados de exemplo
+    ```
     cd custom-content
     php spark migrate:refresh
+    ```
 
 10. Execute a aplicação usando o servidor embutido do PHP
+    ```
     cd custom-content
     php spark serve
+    ```
 
 ## Como usar este projeto
 
-1. Acesse a aplicação web em [http://localhost:8080](http://localhost:8080)
+1. Acesse a aplicação web em [http://localhost:8080](http://localhost:8080).
 2. Acesse a página de contatos e crie um contato: Um contato é uma pessoa ou empresa com a qual você deseja enviar mensagens personalizadas.
 3. Acesse a página de templates e crie um template: Um template é mensagem padronizada. É possível produzir mensagens personalizadas adicionando tags de contato.
 4. Acesse a página de campanhas e crie uma campanha: Uma campanha mescla contatos e um template. Seu objetivo é disparar uma mensagem personalizada para cada contato selecionado.
