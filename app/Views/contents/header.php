@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.5/dist/bootstrap-table.min.css">
     <?php endif; ?>
 
-    <link href="/styles/main.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
 
 </head>
 <body>

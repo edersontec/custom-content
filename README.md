@@ -1,68 +1,166 @@
-# CodeIgniter 4 Application Starter
+# Custom Content
 
-## What is CodeIgniter?
+## Índice
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+- [Sobre o projeto](#sobre-o-projeto)
+- [Motivações](#motivações)
+- [Status do projeto](#status-do-projeto)
+- [Funcionalidades](#funcionalidades)
+- [Telas do sistema](#telas-do-sistema)
+- [Aprendizados](#aprendizados)
+- [Tecnologias utilizadas](#tecnologias-utilizadas)
+- [Pré-requisitos](#pré-requisitos)
+- [Como instalar este projeto](#como-instalar-este-projeto)
+- [Como usar este projeto](#como-usar-este-projeto)
+- [Informações adicionais](#informações-adicionais)
+    - [Lista de serviços SMTP gratuitos](#lista-de-serviços-smtp-gratuitos)
+- [Licença](#licença)
+- [Contribuidores](#contribuidores)
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## Sobre o projeto
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+<div align="center">
+    <img src="public/imgs/logo-200x200.png" alt="Logo" width="200" height="200">
+</div>
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+Custom Content é um projeto web para o envio (atualmente apenas por email) de mensagens personalizadas para contatos.
 
-## Installation & updates
+## Motivações
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+As motivações deste projeto são:
+- Criar uma versão web apartir das experiências de uma aplicação em linha de comando que desenvolvi para envio de emails em lote.
+- Estudar as funcionalidades do framework PHP CodeIgniter
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+## Status do projeto
 
-## Setup
+Versão 0.1: Primeira versão funcional, é possível gerenciar contatos, templates e campanhas. Esta versão permite o envio de mensagens personalizadas. Como esta versão não possui ainda um sistema de login, a sugestão é executar este projeto em localhost e utilizar como um sistema monousuário.
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+## Funcionalidades
 
-## Important Change with index.php
+- Criar, editar e deletar contatos
+- Criar, editar e deletar templates
+- Criar, editar e deletar campanhas
+- Execução de campanhas: realiza o envio de emails em lote
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+## Telas do sistema
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+<a href="prints/tela-home.png" target="_blank">
+    <img src="prints/tela-home.png" width="300" />
+</a>
+<a href="prints/tela-contatos.png" target="_blank">
+    <img src="prints/tela-contatos.png" width="300" />
+</a>
+<a href="prints/tela-contatos-novo.png" target="_blank">
+    <img src="prints/tela-contatos-novo.png" width="300" />
+</a>
+<a href="prints/tela-templates.png" target="_blank">
+    <img src="prints/tela-templates.png" width="300" />
+</a>
+<a href="prints/tela-templates-novo.png" target="_blank">
+    <img src="prints/tela-templates-novo.png" width="300" />
+</a>
+<a href="prints/tela-campanhas.png" target="_blank">
+    <img src="prints/tela-campanhas.png" width="300" />
+</a>
+<a href="prints/tela-campanhas-novo.png" target="_blank">
+    <img src="prints/tela-campanhas-novo.png" width="300" />
+</a>
 
-**Please** read the user guide for a better explanation of how CI4 works!
+## Aprendizados
 
-## Repository Management
+- Funcionalidades do framework PHP CodeIgniter
+- Padrão MVC
+- MySQL e SQLite
+- Migrations e Seeds
+- Layouts com Bootstrap
+- Testes unitários
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+## Tecnologias utilizadas
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+- [PHP](https://www.php.net/): Linguagem de programação
+- [CodeIgniter](https://codeigniter.com/): Framework PHP
+- [SQLite](https://www.sqlite.org/): Banco de dados relacional
+- [MySQL](https://www.mysql.com/): Banco de dados relacional
+- [Bootstrap](https://getbootstrap.com/): Framework web para desenvolvimento front-end
 
-## Server Requirements
+## Pré-requisitos
 
-PHP version 7.4 or higher is required, with the following extensions installed:
+- [PHP](https://www.php.net/)
+- [git](https://git-scm.com/)
+- [Composer](https://getcomposer.org/)
+- SQLite(embutido no PHP) ou [MySQL](https://www.mysql.com/)
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+## Como instalar este projeto
 
-> [!WARNING]
-> The end of life date for PHP 7.4 was November 28, 2022.
-> The end of life date for PHP 8.0 was November 26, 2023.
-> If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> The end of life date for PHP 8.1 will be November 25, 2024.
+1. Garanta que o PHP, git, Composer e MySQL estejam instalados
+    - para usar sqlite, habilite as suas extensões no php (arquivo php.ini), descomente as seguintes linhas:
+	extension=pdo_sqlite
+	extension=sqlite3
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+2. Clone o repositório: git clone https://github.com/edersontec/custom-content.git
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+3. Baixe as dependências: composer install
+
+4. Prepare as variáveis de ambiente:
+    - O arquivo *env.example* é um arquivo de exemplo para auxiliar na instalação da aplicação, basta preencher as informações
+    - Renomeie o arquivo *env.example* para *.env*
+    - Decida qual banco de dados irá usar: SQLite ou MySQL
+        - SQLite: gere o arquivo de banco de dados utilizando o Spark (utilitário de linha de comando do CodeIgniter) e coloque na pasta /writable/db/
+        php spark db:create data --ext sqlite
+        php spark db:create tests --ext sqlite *ou defina ':memory:' para executar um banco de dados SQLite na memória*
+        - MySQL: crie uma database, descomente as linhas, adicione as configurações do seu banco de dados MySQL e comente as linhas relacionadas as configurações do SQLite
+    - Configure o serviço SMTP de envio dos emails
+        - Utilize alguns [serviços SMTP gratuitos que testei](#lista-de-serviços-smtp-gratuitos) ou algum outro que deseje
+
+5. Teste o serviço SMTP (a proposta é enviar um email de teste)
+    cd custom-content
+    php public\index.php testarenvioemail
+
+6. Execute as Migrations (para criar as tabelas do banco de dados)
+    cd custom-content
+    php spark migrate
+
+7. Execute a Seed AppDataSeeder (para popular o banco com dados predefinidos essenciais para o funcionamento da aplicação)
+    cd custom-content
+    php spark db:seed AppDataSeeder
+
+8. (opcional) Execute a Seed TestSeeder (caso queira popular o banco com dados de exemplo)
+    cd custom-content
+    php spark db:seed TestSeeder
+
+9. (opcional) Limpe os dados de exemplo
+    cd custom-content
+    php spark migrate:refresh
+
+10. Execute a aplicação usando o servidor embutido do PHP
+    cd custom-content
+    php spark serve
+
+## Como usar este projeto
+
+1. Acesse a aplicação web em [http://localhost:8080](http://localhost:8080)
+2. Acesse a página de contatos e crie um contato: Um contato é uma pessoa ou empresa com a qual você deseja enviar mensagens personalizadas.
+3. Acesse a página de templates e crie um template: Um template é mensagem padronizada. É possível produzir mensagens personalizadas adicionando tags de contato.
+4. Acesse a página de campanhas e crie uma campanha: Uma campanha mescla contatos e um template. Seu objetivo é disparar uma mensagem personalizada para cada contato selecionado.
+5. Acesse a página de campanhas, escolha uma campanha criada e clique no botão de executar a campanha.
+6. Sucesso! Campanha finalizada com sucesso.
+
+## Informações adicionais
+
+Logo gerado em [Free Logo Design](https://www.freelogodesign.org/)
+
+### Lista de serviços SMTP gratuitos
+
+Os serviços abaixo foram testados com sucesso. Estes estão pré-configurados nas variáveis de ambiente, basta criar uma conta e depois preencher os dados:
+
+- [Brevo (ex Sendinblue)](https://www.brevo.com)
+- [SAPO](https://mail.sapo.pt)
+
+## Licença
+
+Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE) para mais detalhes.
+
+## Contribuidores
+
+Sinta-se livre para para contribuir com o projeto
+
