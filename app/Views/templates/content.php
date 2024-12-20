@@ -3,7 +3,7 @@
 <section>
 
     <p>
-        <a href="/templates/novo" class="btn btn-primary">Novo template</a>
+        <a href="<?= base_url('templates/novo') ?>" class="btn btn-primary">Novo template</a>
     </p>
 
     <?= $conteudo ?>

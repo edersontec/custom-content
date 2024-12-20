@@ -30,8 +30,8 @@ class TemplatesController extends BaseController
             $templates[$key]['mensagem'] = character_limiter($template['mensagem'], 20, '...');
             
             //Adiciona botões CRUD em cada template
-            $templates[$key]['link_editar'] = '<a href="/templates/editar/'.$template['id'].'" class="btn btn-secondary"><i class="bi bi-pen"></a>';
-            $templates[$key]['link_excluir'] = '<a href="/templates/excluir/'.$template['id'].'" class="btn btn-secondary"><i class="bi bi-trash"></a>';  
+            $templates[$key]['link_editar'] = '<a href="'.base_url('templates/editar/'.$template['id']).'" class="btn btn-secondary"><i class="bi bi-pen"></a>';
+            $templates[$key]['link_excluir'] = '<a href="'.base_url('templates/excluir/'.$template['id']).'" class="btn btn-danger"><i class="bi bi-trash"></a>';  
         }
 
         $table = new Table();

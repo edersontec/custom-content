@@ -33,7 +33,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.5/dist/bootstrap-table.min.js"></script>
-    <script src="/js/tabelas.js"></script>
+    <script src="<?= base_url('js/tabelas.js') ?>"></script>
 <?php endif; ?>
 
 <!-- -->

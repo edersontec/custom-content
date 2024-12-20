@@ -28,7 +28,7 @@
             
             <input type="hidden" name="id" value="<?= set_value('id', @$id) ?>">
 
-            <a href="/templates" class="btn btn-secondary">Voltar</a>
+            <a href="<?= base_url('templates') ?>" class="btn btn-secondary">Voltar</a>
             <button type="submit" class="btn btn-primary">Salvar</button>
         
         <?= form_close() ?>

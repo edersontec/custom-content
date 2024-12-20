@@ -57,7 +57,7 @@
             <input type="hidden" name="id" value="<?= set_value('id', @$id) ?>">
             <input type="hidden" name="campanhas_status_id" value="<?= set_value('campanhas_status_id', @$campanhas_status_id) ?>">
 
-            <a href="/campanhas" class="btn btn-secondary">Voltar</a>
+            <a href="<?= base_url('campanhas') ?>" class="btn btn-secondary">Voltar</a>
             <button type="submit" class="btn btn-primary">Salvar</button>
 
         <?= form_close() ?>

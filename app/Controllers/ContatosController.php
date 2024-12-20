@@ -26,8 +26,8 @@ class ContatosController extends BaseController
         foreach ($contatos as $key => $contato) {
             
             //Adiciona botões CRUD em cada contato
-            $contatos[$key]['link_editar'] = '<a href="/contatos/editar/'.$contato['id'].'" class="btn btn-secondary"><i class="bi bi-pen"></a>';
-            $contatos[$key]['link_excluir'] = '<a href="/contatos/excluir/'.$contato['id'].'" class="btn btn-secondary"><i class="bi bi-trash"></a>';  
+            $contatos[$key]['link_editar'] = '<a href="'.base_url('contatos/editar/'.$contato['id']).'" class="btn btn-secondary"><i class="bi bi-pen"></a>';
+            $contatos[$key]['link_excluir'] = '<a href="'.base_url('contatos/excluir/'.$contato['id']).'" class="btn btn-danger"><i class="bi bi-trash"></a>';  
         }
 
         $table = new Table();

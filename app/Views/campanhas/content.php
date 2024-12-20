@@ -3,7 +3,7 @@
 <section>
 
     <p>
-        <a href="/campanhas/novo" class="btn btn-primary">Nova campanha</a>
+        <a href="<?= base_url('campanhas/novo') ?>" class="btn btn-primary">Nova campanha</a>
     </p>
 
     <?= $conteudo ?>

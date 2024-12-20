@@ -29,9 +29,9 @@ class CampanhasController extends BaseController
         foreach ($campanhas as $key => $campanha) {
             
             //Adiciona botões CRUD em cada campanha
-            $campanhas[$key]['link_editar'] = '<a href="/campanhas/editar/'.$campanha['id'].'" class="btn btn-secondary"><i class="bi bi-pen"></a>';
-            $campanhas[$key]['link_excluir'] = '<a href="/campanhas/excluir/'.$campanha['id'].'" class="btn btn-secondary"><i class="bi bi-trash"></a>';  
-            $campanhas[$key]['link_executar'] = '<a href="/campanhas/executar/'.$campanha['id'].'" class="btn btn-secondary"><i class="bi bi-send"></a>'; 
+            $campanhas[$key]['link_editar'] = '<a href="'.base_url('campanhas/editar/'.$campanha['id']).'" class="btn btn-secondary"><i class="bi bi-pen"></a>';
+            $campanhas[$key]['link_excluir'] = '<a href="'.base_url('campanhas/excluir/'.$campanha['id']).'" class="btn btn-danger"><i class="bi bi-trash"></a>';  
+            $campanhas[$key]['link_executar'] = '<a href="'.base_url('campanhas/executar/'.$campanha['id']).'" class="btn btn-primary"><i class="bi bi-send"></a>'; 
         }
 
         $table = new Table();
