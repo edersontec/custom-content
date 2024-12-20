@@ -53,7 +53,7 @@ final class CampanhasModelTest extends CIUnitTestCase
         $campanhasModel = new CampanhasModel();
         $arrayCampanha = $campanhasModel->getCampanha($expectedArrayCampanha['id']);
 
-        $this->assertSame( array_keys($expectedArrayCampanha), array_keys($arrayCampanha) );
+        $this->assertEquals( array_keys($expectedArrayCampanha), array_keys($arrayCampanha) );
 
     }
 

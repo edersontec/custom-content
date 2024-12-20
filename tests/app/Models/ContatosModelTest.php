@@ -38,6 +38,13 @@ final class ContatosModelTest extends CIUnitTestCase
 
     public function testDeveRetornarApenasHumContatoFakeSeeder(): void
     {
+
+        // SQLite: 'id' => 1,
+        // MySQL: 'id' => '1',
+
+        // assertEquals: verifica ==
+        // assertSame: verifica ===
+
         $expectedArrayContato = Array(
             'id' => 1,
             'nome' => 'Laura Marta Cordeiro Sobrinho',
@@ -47,7 +54,7 @@ final class ContatosModelTest extends CIUnitTestCase
         $contatoModel = new ContatosModel();
         $arrayContato = $contatoModel->getContato($expectedArrayContato['id']);
 
-        $this->assertSame($expectedArrayContato,  $arrayContato);
+        $this->assertEquals($expectedArrayContato,  $arrayContato);
 
     }
 

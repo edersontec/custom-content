@@ -48,7 +48,8 @@ final class TemplatesModelTest extends CIUnitTestCase
         $templatesModel = new TemplatesModel();
         $arrayTemplate = $templatesModel->getTemplate($expectedArrayTemplate['id']);
 
-        $this->assertSame( array_keys($expectedArrayTemplate),  array_keys($arrayTemplate) );
+        // assertEqualsCanonicalizing: faz um sort nos arrays antes da comparação
+        $this->assertEqualsCanonicalizing( array_keys($expectedArrayTemplate),  array_keys($arrayTemplate) );
 
     }
 

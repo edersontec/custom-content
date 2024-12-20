@@ -52,7 +52,7 @@ class CampanhasModel extends Model
 
     public function getCampanhas(): array
     {
-        $queryString = "SELECT camp.id, camp.nome, camp.data_criacao, stat.nome as status_nome FROM campanhas as camp, campanhas_status as stat WHERE camp.campanhas_status_id == stat.id";
+        $queryString = "SELECT camp.id, camp.nome, camp.data_criacao, stat.nome as status_nome FROM campanhas as camp, campanhas_status as stat WHERE camp.campanhas_status_id = stat.id";
         return $this->query($queryString)->getResultArray();
     }
 
@@ -77,14 +77,14 @@ class CampanhasModel extends Model
 
         // busca contatos que pertencem a campanha
 
-        $arrayContatosSelecionados =  $this->query("SELECT cont.* FROM contatos as cont, campanhas_contatos_templates as camp WHERE cont.id == camp.contatos_id AND camp.campanhas_id = ".$id)->getResultArray();
+        $arrayContatosSelecionados =  $this->query("SELECT cont.* FROM contatos as cont, campanhas_contatos_templates as camp WHERE cont.id = camp.contatos_id AND camp.campanhas_id = ".$id)->getResultArray();
         $data['contatosSelecionados'] = $arrayContatosSelecionados;
         $data['idsContatosSelecionados'] = array_map( fn($e) => $e['id'] ?? "", $arrayContatosSelecionados );
 
         // busca templates que pertencem a campanha
         // DISTINCT: campanha tem apenas um template
         
-        $arrayTemplatesSelecionados =  $this->query("SELECT DISTINCT templ.* FROM templates as templ, campanhas_contatos_templates as camp WHERE templ.id == camp.templates_id AND camp.campanhas_id = ".$id)->getResultArray();
+        $arrayTemplatesSelecionados =  $this->query("SELECT DISTINCT templ.* FROM templates as templ, campanhas_contatos_templates as camp WHERE templ.id = camp.templates_id AND camp.campanhas_id = ".$id)->getResultArray();
         $data['templatesSelecionados'] = $arrayTemplatesSelecionados;
         $data['idsTemplatesSelecionados'] = array_map( fn($e) => $e['id'] ?? "", $arrayTemplatesSelecionados );
 
@@ -134,7 +134,7 @@ class CampanhasModel extends Model
         $arrayInsertQueries = [];
         foreach ($data['idsContatosSelecionados'] as $idContatoSelecionado) {
             foreach ($data['idsTemplatesSelecionados'] as $idTemplateSelecionado) {
-                $arrayInsertQueries[] = "INSERT INTO \"campanhas_contatos_templates\" (\"id\", \"campanhas_id\", \"contatos_id\", \"templates_id\") VALUES (NULL, ".$idCampanha.", ".$idContatoSelecionado.", ".$idTemplateSelecionado.")";
+                $arrayInsertQueries[] = "INSERT INTO `campanhas_contatos_templates`(`id`, `campanhas_id`, `contatos_id`, `templates_id`) VALUES (NULL, ".$idCampanha.", ".$idContatoSelecionado.", ".$idTemplateSelecionado.")";
             }
         }
 
