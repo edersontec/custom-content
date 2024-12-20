@@ -105,7 +105,7 @@ Versão 0.1: Primeira versão funcional, é possível gerenciar contatos, templa
 
 4. Prepare as variáveis de ambiente:
     - O arquivo *env.example* é um arquivo de exemplo para auxiliar na instalação da aplicação, basta preencher as informações
-    - Renomeie o arquivo *env.example* para *.env*
+    - Faça uma cópia de *env.example* e renomeie-a para *.env*
     - Decida qual banco de dados irá usar: SQLite ou MySQL
         - SQLite: gere os arquivos de banco de dados utilizando o Spark (utilitário de linha de comando do CodeIgniter) e coloque os na pasta /writable/db/
             ```
